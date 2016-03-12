@@ -1,5 +1,6 @@
 import random
 
+from flask import abort, Response
 from flask.ext.login import current_user
 
 from app import app
@@ -11,11 +12,12 @@ def generate_playlist(groupid, length=10):
     # firstly, make sure that the user is authenticated
     if current_user.is_anonymous:
         # Unauthorised!
+        print('auth')
         abort(403)
 
     # make sure that the user is in the group
     if Group.query.get(groupid) not in current_user.groups:
-        print(current_user.groups)
+        print('groups')
         abort(403)
 
     # Get the current user from the database
@@ -37,7 +39,7 @@ def generate_playlist(groupid, length=10):
 
         if len(likes) == 0:
             # TODO: implement this case
-            pass
+            break
 
         song = likes[random.randrange(len(likes))]
 
@@ -62,3 +64,5 @@ def generate_playlist(groupid, length=10):
             # there's a user other than this one
             linked_users.remove(user)
             user = random.select(users)
+
+    return Response("")
