@@ -16,8 +16,7 @@ client_id = os.getenv('SPOTIPY_CLIENT_ID')
 client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
 redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI')
 
-sp_oauth = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri,
-        scope=scope)
+sp_oauth = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri, scope=scope)
 
 @lm.user_loader
 def load_user(_id):
