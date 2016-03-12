@@ -86,7 +86,7 @@ class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Store the spotify id of the artist that they have in common
-    spotify_id = db.Column(db.String(64), nullable=False)
+    spotify_id = db.Column(db.String(64), nullable=False, unique=True)
 
 
 class Song(db.Model):
@@ -100,5 +100,5 @@ class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Store the spotify id of the song that they have in common
-    spotify_id = db.Column(db.String(64), nullable=False)
+    spotify_id = db.Column(db.String(64), nullable=False, unique=True)
 
