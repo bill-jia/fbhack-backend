@@ -73,6 +73,8 @@ class Group(db.Model):
     # The user that initially creates the group can be known as the 'host'
     host = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+    code = db.Column(db.String(64), nullable=False)
+
     members = db.relationship("User", secondary=group_membership_association_table, backref='groups')
 
 

@@ -15,4 +15,4 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///spotty.db'
 db = SQLAlchemy(app)
 lm = LoginManager(app)
 
-from . import auth, models, generate
+from . import auth, models, generate, views
