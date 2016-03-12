@@ -43,7 +43,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), nullable=True)
 
     # This can be used for querying the Spotify API
-    spotify_id = db.Column(db.String(64), nullable=False, unique=True)
+    spotify_id = db.Column(db.String(64), nullable=False, unique=True, index=True)
 
     preferences_last_updated = db.Column(db.DateTime(), nullable=False, default=datetime.today)
 
@@ -88,7 +88,7 @@ class Artist(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Store the spotify id of the artist that they have in common
-    spotify_id = db.Column(db.String(64), nullable=False, unique=True)
+    spotify_id = db.Column(db.String(64), nullable=False, unique=True, index=True)
 
 
 class Song(db.Model):
@@ -102,5 +102,5 @@ class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     # Store the spotify id of the song that they have in common
-    spotify_id = db.Column(db.String(64), nullable=False, unique=True)
+    spotify_id = db.Column(db.String(64), nullable=False, unique=True, index=True)
 
