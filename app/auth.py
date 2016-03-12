@@ -2,11 +2,11 @@ import sys
 import spotipy
 import spotipy.util as util
 
-from flask import redirect, url_for
-from flask.ext.login import LoginManager, current_user
+from flask import redirect, url_for, abort
+from flask.ext.login import LoginManager, current_user, login_user
 from app import app, lm, db
 
-from .models import User
+from .models import User, Group
 
 scope = 'user-library-read user-follow-read user-read-email'
 
@@ -30,15 +30,22 @@ def authorize(username):
 		if token:
 			sp = spotipy.Spotify(auth=token)
 			user = sp.current_user()
+
 			print(user)
+
 			# If the user does not exist on our database, register them
-			if User.query.filter_by(spotify_id=user['id']).first() == None:
-				newUser = User(name=user['display_name'], spotify_id=user['id'], email=user['email'])
+			user_object = User.query.filter_by(spotify_id=user['id']).first()
+
+			if user_object is None:
+				newUser = User(name=user['display_name'] or user['id'], spotify_id=user['id'], email=user['email'])
 				db.session.add(newUser)
 				db.session.commit()
+				login_user(newUser)
 				print("new user registered!")
 			else:
+				login_user(user_object)
 				print("user already exists")
+
 			#update data in our database
 			updateSpotifyData(sp)
 
@@ -58,7 +65,7 @@ def updateSpotifyData(spotify):
 		for i in range(1,pages):
 			nextCursor = artists["artists"]["cursors"]["after"]
 			artists = spotify.current_user_followed_artists(limit=lim, after=nextCursor)
-	
+
 	tracks = spotify.current_user_saved_tracks(limit=lim)
 	totalTracks = tracks["total"]
 	# for track in tracks["items"]:
@@ -68,7 +75,7 @@ def updateSpotifyData(spotify):
 		for i in range(1,pages):
 			tracks = spotify.current_user_saved_tracks(limit=lim, offset=i*lim)
 			# for track in tracks["items"]:
-			# 	print(track["track"]["name"].encode('utf-8'))			
+			# 	print(track["track"]["name"].encode('utf-8'))
 
 	userId = spotify.current_user()["id"]
 	playlists = spotify.user_playlists(userId, limit=lim)
