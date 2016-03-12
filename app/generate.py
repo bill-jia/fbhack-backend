@@ -1,5 +1,6 @@
 import random
 
+from flask import abort
 from flask.ext.login import current_user
 
 from app import app
