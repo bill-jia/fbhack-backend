@@ -3,7 +3,7 @@ import spotipy
 import spotipy.util as util
 
 from flask import redirect, url_for, abort
-from flask.ext.login import LoginManager, current_user, login_user
+from flask.ext.login import LoginManager, current_user, login_user, logout_user
 from app import app, lm, db
 
 from .models import User, Group
@@ -18,7 +18,14 @@ def load_user(_id):
 @app.route('/')
 @app.route('/index')
 def index():
-	return "Hello World!"
+	if current_user.is_anonymous:
+		return "Hello World"
+	return '<a href="/logout">Log Out</a>'
+
+@app.route('/logout')
+def logout():
+	logout_user()
+	return redirect(url_for('index'))
 
 @app.route('/authorize/<username>')
 def authorize(username):
@@ -40,10 +47,12 @@ def authorize(username):
 				db.session.add(newUser)
 				db.session.commit()
 				login_user(newUser)
+				user_object = User.query.filter_by(spotify_id=user['id']).first()
 				print("new user registered!")
 			else:
-				login_user(user_object)
+				val = login_user(user_object)
 				print("user already exists")
+				print(val)
 
 			# update data in our database
 			updateSpotifyData(sp, user_object)
