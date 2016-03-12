@@ -44,10 +44,11 @@ def authorize(username):
 			else:
 				login_user(user_object)
 				print("user already exists")
-			
-			#update data in our database
+
+			# update data in our database
 			updateSpotifyData(sp, user_object)
 
 		else:
 			print("authentication failed!")
+
 	return redirect(url_for('index'))

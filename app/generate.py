@@ -12,12 +12,10 @@ def generate_playlist(groupid, length=10):
     # firstly, make sure that the user is authenticated
     if current_user.is_anonymous:
         # Unauthorised!
-        print('auth')
         abort(403)
 
     # make sure that the user is in the group
     if Group.query.get(groupid) not in current_user.groups:
-        print('groups')
         abort(403)
 
     # Get the current user from the database
