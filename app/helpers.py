@@ -61,6 +61,7 @@ def updateSpotifyData(spotify, user):
 			getTracksFromPlaylists(playlists, spotify)
 	
 	user.preferences_last_updated = datetime.today()
+	db.session.commit()
 
 def getTracksFromPlaylists(playlists, spotify, user):
 	"""
@@ -88,6 +89,10 @@ def getTracksFromPlaylists(playlists, spotify, user):
 					break
 
 def tryAddTrack(user, track):
+	# ignore tracks that aren't on spotify
+	if 'is_local' in track and track['is_local']:
+		return
+
 	if not user.song_preferences.filter_by(spotify_id=track["track"]["id"]).first():
 		newSong = Song(spotify_id=track["track"]["id"])
 		try:
