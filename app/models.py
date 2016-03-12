@@ -4,7 +4,7 @@ models.py
 Define models relating to the project, for examples users,
 or the tastes shared by users.
 """
-
+from datetime import datetime
 from flask.ext.login import UserMixin
 
 from app import db
@@ -44,6 +44,8 @@ class User(UserMixin, db.Model):
 
     # This can be used for querying the Spotify API
     spotify_id = db.Column(db.String(64), nullable=False, unique=True)
+
+    preferences_last_updated = db.Column(db.DateTime(), nullable=False, default=datetime.today)
 
     # Artists that this user likes
     artist_preferences = db.relationship("Artist", secondary=artist_preference_association_table, backref='users', lazy='dynamic')
