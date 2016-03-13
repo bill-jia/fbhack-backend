@@ -2,7 +2,7 @@ from .models import User, Artist, Song
 from app import db
 from datetime import datetime
 import dateutil.parser
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import InvalidRequestError, IntegrityError
 
 
 def updateSpotifyData(spotify, user):
@@ -98,8 +98,8 @@ def tryAddTrack(user, track):
 		try:
 			db.session.add(newSong)
 			db.session.flush()
-		except IntegrityError:
-			pass
+		except (InvalidRequestError, IntegrityError):
+			db.session.rollback()
 		song = Song.query.filter_by(spotify_id=track["track"]["id"]).one()
 		user.song_preferences.append(song)
 
@@ -109,7 +109,7 @@ def tryAddArtist(user, artist):
 		try:
 			db.session.add(newArtist)
 			db.session.flush()
-		except IntegrityError:
-			pass
+		except (InvalidRequestError, IntegrityError):
+			db.session.rollback()
 		artist = Artist.query.filter_by(spotify_id=artist["id"]).one()
 		user.artist_preferences.append(artist)

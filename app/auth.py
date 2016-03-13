@@ -16,8 +16,6 @@ client_id = os.getenv('SPOTIPY_CLIENT_ID')
 client_secret = os.getenv('SPOTIPY_CLIENT_SECRET')
 redirect_uri = os.getenv('SPOTIPY_REDIRECT_URI')
 
-sp_oauth = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri, scope=scope)
-
 @lm.user_loader
 def load_user(_id):
 	return User.query.get(int(_id))
@@ -30,6 +28,8 @@ def logout():
 
 @app.route('/authorize/')
 def auth():
+	sp_oauth = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri, scope=scope)
+
 	auth_url = sp_oauth.get_authorize_url()
 	print(auth_url)
 
@@ -41,6 +41,8 @@ def authorized():
 	Requests OAuth from Spotify and signs up new users onto database. Updates users' lists of
 	songs, playlists, artists.
 	"""
+
+	sp_oauth = oauth2.SpotifyOAuth(client_id, client_secret, redirect_uri, scope=scope)
 
 	code = sp_oauth.parse_response_code(request.url)
 	token_info = sp_oauth.get_access_token(code)
