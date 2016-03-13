@@ -24,8 +24,13 @@
                         <a href="/" class="brand-logo center">Spotify</a>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             <!-- TODO: handle the logged in case -->
-                            <li><a href="/authorize">Sign In</a></li>
-                            <li><a href="/choice">Groups</a></li>
+                            {% if current_user.is_authenticated %}
+                            <li><a href="/user/?">{{ current_user.name }}</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                            {% else %}
+                            <li><a href="/signin">Sign In</a></li>
+                            <li><a href="/groups">Groups</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     </nav>
