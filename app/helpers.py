@@ -94,7 +94,7 @@ def tryAddTrack(user, track):
 		return
 
 	if not user.song_preferences.filter_by(spotify_id=track["track"]["id"]).first():
-		newSong = Song(spotify_id=track["track"]["id"])
+		newSong = Song(spotify_id=track["track"]["id"], preview_url=track["track"]["preview_url"])
 		try:
 			db.session.add(newSong)
 			db.session.flush()

@@ -106,3 +106,4 @@ class Song(db.Model):
     # Store the spotify id of the song that they have in common
     spotify_id = db.Column(db.String(64), nullable=False, unique=True, index=True)
 
+    preview_url = db.Column(db.String(64), nullable=True)
