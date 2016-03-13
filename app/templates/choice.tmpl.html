@@ -14,9 +14,13 @@ Spotify Thing - Choose a group
             <button type="submit" class="btn">Create Group</button>
         </form>
 
-        <h2>Join Group</h2>
-        <div class="input-field">
-            <input placeholder="Enter Code"id="tag" type="text" class="validate">
-        </div>
+
+        <form action="{{ join_action }}">
+            <h2>Join Group</h2>
+            <div class="input-field">
+                <input placeholder="Enter Code"id="tag" type="text" class="validate" name="code">
+            </div>
+            <button type="submit" class="btn">Join Group</button>            
+        </form>
     </div>
 {% endblock %}
