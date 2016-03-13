@@ -25,6 +25,11 @@
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
                             <!-- TODO: handle the logged in case -->
                             {% if current_user.is_authenticated %}
+                                {% if current_user.image %}
+                                    <li><img class ="profile-pic" src="{{current_user.image}}"/></li>
+                                {% else %}
+                                    <li><img class ="profile-pic" src='/static/default-profile.png'/></li>
+                                {% endif %}
                             <li><a href="/user/?">{{ current_user.name }}</a></li>
                             <li><a href="/choice">Groups</a></li>                            
                             <li><a href="/logout">Logout</a></li>

@@ -80,3 +80,10 @@ html, body {height: 100%;}
   margin-right: 10px;
   margin-bottom: 20px;
 }
+
+.profile-pic {
+  margin: 12px 8px 0 -12px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
