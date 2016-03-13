@@ -7,6 +7,8 @@ or the tastes shared by users.
 from datetime import datetime
 from flask.ext.login import UserMixin
 
+from sqlalchemy_utils import URLType
+
 from app import db
 
 artist_preference_association_table = db.Table(
@@ -51,6 +53,16 @@ class User(UserMixin, db.Model):
     artist_preferences = db.relationship("Artist", secondary=artist_preference_association_table, backref='users', lazy='dynamic')
     song_preferences = db.relationship("Song", secondary=song_preference_association_table, backref='users', lazy='dynamic')
 
+    image = db.Column(URLType, nullable=True)
+
+    # TODO: Define the user's active group
+    # active_group = db.Column(db.Integer, db.ForeignKey('groups.id'), nullable=True)
+
+    def _asdict(self):
+        return {
+            'name': self.name,
+            'image': self.image
+        }
 
 class Group(db.Model):
     """

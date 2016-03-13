@@ -1,0 +1,35 @@
+{% extends "base.tmpl.html" %}
+
+{% block title %}
+Spotify Thing - Group stuff
+{% endblock %}
+
+{% block content %}
+<div class="group jumbotron">
+    <div class="container">
+        <h4>Connected Friends</h4>
+        <!-- <div class="input-field">
+        <input placeholder="Enter Code"id="tag" type="text" class="validate">
+        </div> -->
+
+        <h5>Group code: {{ group.code }}</h5>
+
+        <div class="friends" id="friends">
+            <!-- <div class="chip">
+            <img src="https://s3.amazonaws.com/uifaces/faces/twitter/k/128.jpg" alt="Contact Person">
+            <span>Jane Doe</span>
+            </div> -->
+        </div>
+
+        <a href="#" class="btn">Create Playlist</a>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block endscripts %}
+<script type="text/javascript">
+data = {{ group.members | tojson }}
+</script>
+<script type="text/babel" src="/static/friendsController.js"></script>
+{% endblock %}

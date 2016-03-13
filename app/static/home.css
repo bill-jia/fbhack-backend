@@ -1,0 +1,82 @@
+#wrap{
+    background: linear-gradient( rgba(0, 0, 0, 0.8), rgba(255, 193, 7, 0.4) ), url('https://images.unsplash.com/46/unsplash_52c319226cefb_1.JPG?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=9478ebd3f77477bc5f32936de0d55cb9');
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+}
+
+.nav-wrapper {
+  background: white;
+}
+
+.nav-wrapper a {
+  color: #333;
+}
+
+nav .brand-logo {
+  padding-left: 20px;
+}
+
+.jumbotron {
+  padding: 120px;
+  color: white;
+}
+
+.jumbotron h1 {
+  margin: 0px;
+  font-size: 44px;
+  text-align: center;
+}
+
+.jumbotron .btn {
+  text-align: center;
+  margin-top: 30px;
+  display: block;
+  width: 200px;
+  margin: 30px auto;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  color: #FFECB3;
+  background: #212121;
+}
+
+html, body {height: 100%;}
+
+#wrap {min-height: 100%;}
+
+#main {overflow:auto;
+	padding-bottom: 150px;}  /* must be same height as the footer */
+
+#footer {position: relative;
+	margin-top: -150px; /* negative value of footer height */
+	height: 150px;
+	clear:both;}
+
+.nav-wrapper{
+    padding-left: 20px;
+    padding-right:  20px;
+}
+
+.group {
+  height: 600px;
+  padding-top: 40px;
+}
+
+.friends {
+  margin-top: 40px;
+}
+
+.group h4 {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.chip {
+  margin-right: 10px;
+  margin-bottom: 20px;
+}

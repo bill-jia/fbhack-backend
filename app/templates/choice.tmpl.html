@@ -1,0 +1,22 @@
+{% extends "base.tmpl.html" %}
+
+{% block title %}
+Spotify Thing - Choose a group
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron">
+        <form action="{{ create_action }}">
+            <h2>Create Group</h2>
+            <div class="input-field">
+                <input placeholder="Enter Group Name"id="tag" type="text" class="validate" name="name">
+            </div>
+            <button type="submit" class="btn">Create Group</button>
+        </form>
+
+        <h2>Join Group</h2>
+        <div class="input-field">
+            <input placeholder="Enter Code"id="tag" type="text" class="validate">
+        </div>
+    </div>
+{% endblock %}

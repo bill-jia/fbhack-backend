@@ -1,0 +1,53 @@
+{# Base theme for the project website. #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- Website Theme -->
+        <link rel="stylesheet" href="/static/materialize/css/materialize.css">
+        <link rel="stylesheet" href="/static/home.css">
+
+        <!-- Javascript for React -->
+        <script src="/static/build/react.js"></script>
+        <script src="/static/build/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="wrap">
+            <div id="main">
+                <div class="header">
+                    <nav>
+                        <div class="nav-wrapper amber lighten-2">
+                        <a href="/" class="brand-logo center">Spotify</a>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <!-- TODO: handle the logged in case -->
+                            <li><a href="/signin">Sign In</a></li>
+                            <li><a href="/groups">Groups</a></li>
+                        </ul>
+                    </div>
+                    </nav>
+                </div>
+
+                {% block content %}{% endblock %}
+
+            </div>
+        </div>
+
+
+    <div id="footer" class="footer">
+        <div class="container">
+            <h4>Built for Facebook's London Hackathon</h4>
+        </div>
+    </div>
+
+    <!-- general scripts -->
+    <script src="/static/jquery.min.js"></script>
+    <script src="/static/materialize/js/materialize.js"></script>
+
+    <!-- page-specific scripts -->
+    {% block endscripts %}{% endblock %}
+
+    </body>
+</html>

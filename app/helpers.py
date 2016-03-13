@@ -23,7 +23,7 @@ def updateSpotifyData(spotify, user):
 			nextCursor = artists["artists"]["cursors"]["after"]
 			artists = spotify.current_user_followed_artists(limit=lim, after=nextCursor)
 			for artist in artists["artists"]["items"]:
-				tryAddArtist(user, artist)		
+				tryAddArtist(user, artist)
 
 	tracks = spotify.current_user_saved_tracks(limit=lim)
 	totalTracks = tracks["total"]
