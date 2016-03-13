@@ -58,7 +58,7 @@ def authorized():
 			newUser = User(name=user['display_name'] or user['id'],
 						   spotify_id=user['id'],
 						   email=user['email'],
-						   image=(None if len(user['images']) == 0 else user['images'][0]))
+						   image=(None if len(user['images']) == 0 else user['images'][0]['url']))
 			db.session.add(newUser)
 			db.session.commit()
 			login_user(newUser)
