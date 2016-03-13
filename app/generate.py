@@ -54,13 +54,13 @@ def generate_playlist(groupid, length=10):
                 else:
                     likes.remove(song)
             break
-
-        linked_users = song.users.filter(User.groups.any(_id=groupid))
+        print(song.users)
+        linked_users = [user for user in song.users if User.groups.any(id=groupid) is not None]
 
         # pick a random user (preferably not this one)
         if len(linked_users) > 1:
             # there's a user other than this one
             linked_users.remove(user)
-            user = random.select(users)
+            user = random.choice(linked_users)
 
     return Response("")

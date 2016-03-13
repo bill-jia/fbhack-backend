@@ -23,6 +23,7 @@ def create_group():
 	name = request.args.get('name')
 	newCode = uuid.uuid4().hex
 	newGroup = Group(name=name, code=newCode, host=current_user.id)
+	newGroup.members.append(current_user)
 	db.session.add(newGroup)
 	db.session.commit()
 	return redirect(url_for('choice'))
@@ -34,4 +35,4 @@ def join_group():
 	if current_user not in group.members:
 		group.members.append(current_user)
 		db.session.commit()
-	return redirect(url_for('choice'))		
+	return redirect(url_for('choice'))
