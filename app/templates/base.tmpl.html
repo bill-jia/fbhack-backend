@@ -26,10 +26,10 @@
                             <!-- TODO: handle the logged in case -->
                             {% if current_user.is_authenticated %}
                             <li><a href="/user/?">{{ current_user.name }}</a></li>
+                            <li><a href="/choice">Groups</a></li>                            
                             <li><a href="/logout">Logout</a></li>
                             {% else %}
-                            <li><a href="/signin">Sign In</a></li>
-                            <li><a href="/groups">Groups</a></li>
+                            <li><a href="/authorize">Sign In</a></li>
                             {% endif %}
                         </ul>
                     </div>
