@@ -12,5 +12,8 @@ Spotify Thing - Playlist
 {% endblock %}
 
 {% block endscripts %}
+<script type="text/javascript">
+	data = {{ songs | safe}}
+</script>
 <script type="text/babel" src="/static/playlist.js"></script>
 {% endblock %}

@@ -28,7 +28,7 @@ var PlayList = React.createClass({
       <div>
         <ul className="collection col s12">
         {
-          all.map(function(m, index){
+          data.map(function(m, index){
             return <Item  title={m.title} artist={m.artist} description={m.description} preview={m.preview_url}/>
           })
         }

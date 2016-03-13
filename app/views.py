@@ -39,10 +39,11 @@ def choice():
 @login_required
 def group(group_code):
 	group = Group.query.filter_by(code=group_code).one()
-
+	groupid = group.id
 	return render_template('groups.tmpl.html',
 							group=group,
-							user=current_user)
+							user=current_user,
+							playlist_action=url_for('generate_playlist', groupid=groupid))
 
 @app.route('/group/create')
 @login_required

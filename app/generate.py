@@ -1,10 +1,12 @@
 import random
 
-from flask import abort, Response
+from flask import abort, render_template, url_for, jsonify
 from flask.ext.login import current_user
 
 from app import app
 from .models import User, Group
+import spotipy
+import json
 
 @app.route('/group/<groupid>/playlist/')
 @app.route('/group/<groupid>/playlist/<length>')
@@ -19,7 +21,7 @@ def generate_playlist(groupid, length=10):
         abort(403)
 
     # Get the current user from the database
-    print(current_user.spotify_id)
+    # print(current_user.spotify_id)
 
     # Perform a random walk of the 'songs' graph, chosing a random edge
     # at each point. In the future, it would be nice to do something more
@@ -54,7 +56,7 @@ def generate_playlist(groupid, length=10):
                 else:
                     likes.remove(song)
             break
-        print(song.users)
+        # print(song.users)
         linked_users = [user for user in song.users if User.groups.any(id=groupid) is not None]
 
         # pick a random user (preferably not this one)
@@ -63,4 +65,10 @@ def generate_playlist(groupid, length=10):
             linked_users.remove(user)
             user = random.choice(linked_users)
 
-    return Response("")
+    sp = spotipy.Spotify()
+    songJSON = []
+    for song in songs:
+        track = sp.track(song)
+        songJSON.append({'artist': track["artists"][0]["name"], 'title':track["name"], 'description':track["album"]["name"], 'preview_url':track["preview_url"]})
+    songJSON = json.dumps(songJSON)
+    return render_template("playlist.tmpl.html", songs=songJSON, user=current_user)
